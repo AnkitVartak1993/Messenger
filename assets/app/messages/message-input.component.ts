@@ -10,9 +10,10 @@ export class MessageInputComponent{
     constructor(private messageService: MessageService){
 
     }
-onSave(value: string){
-    const message = new Message(value, 'Ankit');
+onSubmit(form: NgForm){ 
+    const message = new Message(form.value.content, 'Ankit');
     this.messageService.addMessage(message);
+    form.resetForm();
 }
 
 }
