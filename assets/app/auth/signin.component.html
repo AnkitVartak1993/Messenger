@@ -1,1 +1,11 @@
-<h1>Sign In</h1>
+<div class="col-md-8 col-md-offset-2">
+    <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+        <div class="form-group"><br>
+            <label for="email">Email</label>
+            <input formControlName="email" type="email" id="email"class="form-control"><br>
+            <label for="password">Password</label>
+            <input formControlName="password" type="password" id="password"class="form-control"><br>
+            <button class="btn btn-primary" type="submit" [disabled]="!signInForm.valid">Submit</button>
+        </div>
+    </form>
+</div>
