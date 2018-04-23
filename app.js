@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var {dbString} = require('./config/dbconfig');
 var appRoutes = require('./routes/app');
 var mongoose = require('mongoose');
-
+var messageRoutes =  require('./routes/messages');
 var app = express();
 mongoose.connect(dbString);
 var db = mongoose.connection;
@@ -33,7 +33,7 @@ app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PATCH, DELETE, OPTIONS');
     next();
 });
-
+app.use('/message', messageRoutes);
 app.use('/', appRoutes);
 
 // catch 404 and forward to error handler
