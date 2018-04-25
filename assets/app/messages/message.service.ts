@@ -51,5 +51,8 @@ getMessage(){
 
 deleteMessage(message: Message){
     this.messages.splice(this.messages.indexOf(message),1);
+    return this.http.delete('http://localhost:3000/message/' + message.messageId)
+            .map((response: Response) => response.json())
+            .catch((error: Response) => Observable.throw(error.json()));
 }
 }

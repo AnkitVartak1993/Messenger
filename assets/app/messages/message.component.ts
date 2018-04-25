@@ -31,6 +31,9 @@ constructor( private messageService: MessageService ){
     this.messageService.editMessage(this.message);
  }
  onDelete(){
-this.messageService.deleteMessage(this.message);
+    this.messageService.deleteMessage(this.message)
+        .subscribe(
+            result => console.log(result)
+        );
  }
 }
