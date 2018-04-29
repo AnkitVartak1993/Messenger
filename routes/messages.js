@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-
+var jwt = require('jsonwebtoken');
 var Message = require('../models/message');
 
 router.get('/', function (req, res, next) {
@@ -20,7 +20,7 @@ router.get('/', function (req, res, next) {
 });
 
 router.use('/', function (req, res, next) {
-    jwt.verify(req.query.token, 'secret', function (err, decoded) {
+    jwt.verify(req.query.token, '16089293', function (err, decoded) {
         if (err) {
             return res.status(401).json({
                 title: 'Not Authenticated',
