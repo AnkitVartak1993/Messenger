@@ -22,7 +22,7 @@ addMessage(message: Message){
     return this.http.post('http://localhost:3000/message' + token, body, {headers: headers})
             .map((response: Response) => {
                 const result = response.json();
-                const message = new Message(result.obj.content, result.obj.user.firstName, result.obj._id, result.obj.user._id);
+                const message = new Message(result.obj.content, result.obj.user.firstName, result.obj._id, result.obj.user);
                 this.messages.push(message);
                 return message;
             })
