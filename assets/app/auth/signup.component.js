@@ -1,0 +1,39 @@
+import { Component } from "@angular/core";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { AuthService } from "./auth.service";
+import { User } from "./user.model";
+var SignupComponent = /** @class */ (function () {
+    function SignupComponent(authService) {
+        this.authService = authService;
+    }
+    SignupComponent.prototype.onSubmit = function () {
+        //console.log('form submitted');
+        var user = new User(this.signUpForm.value.email, this.signUpForm.value.password, this.signUpForm.value.firstName, this.signUpForm.value.lastName);
+        this.authService.signup(user)
+            .subscribe(function (data) { return console.log(data); }, function (error) { return console.error(error); });
+        this.signUpForm.reset();
+    };
+    SignupComponent.prototype.ngOnInit = function () {
+        this.signUpForm = new FormGroup({
+            firstName: new FormControl(null, Validators.required),
+            lastName: new FormControl(null, Validators.required),
+            email: new FormControl(null, [
+                Validators.required,
+                Validators.email
+            ]),
+            password: new FormControl(null, Validators.required)
+        });
+    };
+    SignupComponent.decorators = [
+        { type: Component, args: [{
+                    selector: 'app-signup',
+                    templateUrl: './signup.component.html'
+                },] },
+    ];
+    /** @nocollapse */
+    SignupComponent.ctorParameters = function () { return [
+        { type: AuthService, },
+    ]; };
+    return SignupComponent;
+}());
+export { SignupComponent };

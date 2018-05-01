@@ -4,6 +4,8 @@ import { Http, Response, Headers } from "@angular/http";
 import 'rxjs/Rx';
 import { Observable } from "rxjs/Observable";
 import { ErrorService } from "../errors/error.service";
+import { API_URL } from "../environment";
+
 @Injectable()
 export class MessageService {
 
@@ -19,7 +21,7 @@ addMessage(message: Message){
             ? '?token=' + localStorage.getItem('token')
             : '';
        
-    return this.http.post('http://localhost:3000/message' + token, body, {headers: headers})
+    return this.http.post( API_URL +'/message' + token, body, {headers: headers})
             .map((response: Response) => {
                 const result = response.json();
                 const message = new Message(result.obj.content, result.obj.user.firstName, result.obj._id, result.obj.user);
@@ -42,7 +44,7 @@ updateMessage(message: Message) {
         const token = localStorage.getItem('token')
             ? '?token=' + localStorage.getItem('token')
             : '';
-        return this.http.patch('http://localhost:3000/message/' + message.messageId + token, body, {headers: headers})
+        return this.http.patch(API_URL + '/message/' + message.messageId + token, body, {headers: headers})
             .map((response: Response) => response.json())
             .catch((error: Response) => {
                 this.errorService.handleError(error.json());
@@ -50,7 +52,7 @@ updateMessage(message: Message) {
             });
     }
 getMessage(){
-    return this.http.get('http://localhost:3000/message')
+    return this.http.get(API_URL + '/message')
             .map((response: Response) => {
                 const messages = response.json().obj;
                 let transformedMessages: Message[] = [];
@@ -71,7 +73,7 @@ deleteMessage(message: Message){
     const token = localStorage.getItem('token')
             ? '?token=' + localStorage.getItem('token')
             : '';
-    return this.http.delete('http://localhost:3000/message/' + message.messageId + token)
+    return this.http.delete( API_URL + '/message/' + message.messageId + token)
             .map((response: Response) => response.json())
             .catch((error: Response) => {
                 this.errorService.handleError(error.json());
